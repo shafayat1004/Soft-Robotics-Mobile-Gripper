@@ -33,10 +33,10 @@ bool Robot::attachBase(int BASE_TYPE, int MOTOR_FL_PIN, int MOTOR_FR_PIN, int MO
             pinMode (MOTOR_FR_PIN, OUTPUT);
             pinMode (MOTOR_BL_PIN, OUTPUT);
             pinMode (MOTOR_BR_PIN, OUTPUT);
-            break;
-        
+            return true;
+
         default:
-            break;
+            return false;
     }
 }
 
