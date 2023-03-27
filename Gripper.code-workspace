@@ -1,13 +1,15 @@
 {
 	"folders": [
 		{
-			"path": "../../../../../../../mnt/sda1/OneDrive/CSC426 Robotics/Spring 2023/Code/Soft-Robotics-Mobile-Gripper"
+			// "path": "../../../../../../../mnt/sda1/OneDrive/CSC426 Robotics/Spring 2023/Code/Soft-Robotics-Mobile-Gripper"
+			"path": "."
 		}
 	],
 	"settings": {
 		"files.associations": {
 			"*.html": "html",
 			"*.php": "php",
+			"*.py": "python",
 			"array": "cpp",
 			"deque": "cpp",
 			"list": "cpp",
@@ -17,7 +19,8 @@
 			"string_view": "cpp",
 			"initializer_list": "cpp",
 			"ranges": "cpp",
-			"span": "cpp"
+			"span": "cpp",
+			"xstring": "cpp"
 		}
 	}
 }

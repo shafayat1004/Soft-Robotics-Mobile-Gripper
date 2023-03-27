@@ -1,4 +1,4 @@
-#include <Robot.h>
+#include "Robot.h"
 
 // Connectivity ###############################################################
 int BLUETOOTH_PIN_RX = 2;
@@ -13,11 +13,11 @@ int GRIPPER_ELBOW_SERVO  = 5;  // 270deg?
 int GRIPPER_WRIST_SERVO  = 6;  // 270deg? 
 int GRIPPER_FINGER_SERVO = 7;
 // Mobile Base
-String BASE_TYPE = "4WD";
-int    MOTOR_FL_PIN  = 8;
-int    MOTOR_FR_PIN  = 9;
-int    MOTOR_BL_PIN  = 10;
-int    MOTOR_BR_PIN  = 11;
+int BASE_TYPE    = 4; //4 -> 4WD, 2 -> 2WD
+int MOTOR_FL_PIN = 8;
+int MOTOR_FR_PIN = 9;
+int MOTOR_BL_PIN = 10;
+int MOTOR_BR_PIN = 11;
 
 Robot robot;
 
