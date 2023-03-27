@@ -1,4 +1,5 @@
 {
     "sketch": "Soft-Robotics-Mobile-Gripper.ino",
-    "board": "arduino:avr:uno"
+    "configuration": "cpu=atmega2560",
+    "board": "arduino:avr:mega"
 }
