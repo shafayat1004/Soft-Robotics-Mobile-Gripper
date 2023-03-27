@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../OneDrive/CSC426 Robotics/Spring 2023/Code/IOT-Based-Greenhouse-Hydroponics-System"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.html": "html",
+			"*.php": "php",
+			"array": "cpp",
+			"deque": "cpp",
+			"list": "cpp",
+			"string": "cpp",
+			"unordered_map": "cpp",
+			"vector": "cpp",
+			"string_view": "cpp",
+			"initializer_list": "cpp",
+			"ranges": "cpp",
+			"span": "cpp"
+		}
+	}
+}

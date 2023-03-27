@@ -1,0 +1,4 @@
+{
+    "sketch": "Soft-Robotics-Mobile-Gripper.ino",
+    "board": "arduino:avr:uno"
+}
