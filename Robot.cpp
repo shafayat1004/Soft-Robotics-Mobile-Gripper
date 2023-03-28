@@ -1,12 +1,11 @@
+#include <Arduino.h>
 #include "Robot.h"
-#include "Base.h"
-#include "Gripper.h"
 
 Robot::Robot(){
 
 }
 
-Robot::Robot(int BLUETOOTH_PIN_RX, int BLUETOOTH_PIN_TX, int GRIPPER_BASE_SERVO, int GRIPPER_ELBOW_SERVO, int GRIPPER_WRIST_SERVO, int GRIPPER_FINGER_SERVO, int MOTOR_FL_PIN, int MOTOR_FR_PIN, int MOTOR_BL_PIN, int MOTOR_BR_PIN){
+Robot::Robot(int BLUETOOTH_PIN_RX, int BLUETOOTH_PIN_TX, int GRIPPER_BASE_SERVO, int GRIPPER_ELBOW_SERVO, int GRIPPER_WRIST_SERVO, int GRIPPER_FINGER_SERVO, int MOTOR_L_FORW_PIN, int MOTOR_L_BACK_PIN, int MOTOR_R_FORW_PIN, int MOTOR_R_BACK_PIN){
 
 }
 
@@ -26,13 +25,13 @@ bool Robot::attachGripper(int GRIPPER_BASE_SERVO, int GRIPPER_ELBOW_SERVO, int G
     _gripperFingerServo.attach(GRIPPER_FINGER_SERVO);
 }
 
-bool Robot::attachBase(int BASE_TYPE, int MOTOR_FL_PIN, int MOTOR_FR_PIN, int MOTOR_BL_PIN, int MOTOR_BR_PIN){
+bool Robot::attachBase(int BASE_TYPE, int MOTOR_L_FORW_PIN, int MOTOR_L_BACK_PIN, int MOTOR_R_FORW_PIN, int MOTOR_R_BACK_PIN){
     switch (BASE_TYPE){
-        case 4:
-            pinMode (MOTOR_FL_PIN, OUTPUT);
-            pinMode (MOTOR_FR_PIN, OUTPUT);
-            pinMode (MOTOR_BL_PIN, OUTPUT);
-            pinMode (MOTOR_BR_PIN, OUTPUT);
+        case 2:
+            pinMode (MOTOR_L_FORW_PIN, OUTPUT);
+            pinMode (MOTOR_L_BACK_PIN, OUTPUT);
+            pinMode (MOTOR_R_FORW_PIN, OUTPUT);
+            pinMode (MOTOR_R_BACK_PIN, OUTPUT);
             return true;
 
         default:
@@ -41,23 +40,119 @@ bool Robot::attachBase(int BASE_TYPE, int MOTOR_FL_PIN, int MOTOR_FR_PIN, int MO
 }
 
 void Robot::listen(){
-    
+    if (Serial.available() > 0) {
+        _command = Serial.read();
+        stop();
+        switch (_command){
+            case '0':
+                setSpeed(20);
+                break;
+            case '1':
+                setSpeed(40);
+                break;
+            case '2':
+                setSpeed(60);
+                break;
+            case '3':
+                setSpeed(80);
+                break;
+            case '4':
+                setSpeed(100);
+                break;
+            case '5':
+                setTurnRadius(0);
+                break;
+            case '6':
+                setTurnRadius(1);
+                break;
+            case '7':
+                setTurnRadius(2);
+                break;
+            case '8':
+                setTurnRadius(3);
+                break;
+            case 'X':
+                stop();
+                break;
+            case '^':
+                moveForward(_speed);
+                break;
+            case 'V':
+                moveBackward(_speed);
+                break;
+            case '>':
+                turnRight(_speed);
+                break;
+            case '<':
+                turnLeft(_speed);
+                break;
+            default:
+                break;
+        }
+    }
+    else stop();
 }
 
-void Robot::moveForward(int speed){
-    
+void Robot::setSpeed(int speed = 50){
+    _speed = speed;
 }
 
-void Robot::moveBackward(int speed){
-    
+void Robot::setTurnRadius(int turnRadius){
+    _turnRadius = turnRadius;
+}
+
+void Robot::moveForward(int speed = 50){
+    analogWrite(MOTOR_L_FORW_PIN, speed);
+    analogWrite(MOTOR_R_FORW_PIN, speed);
+}
+
+void Robot::moveBackward(int speed = 50){
+    analogWrite(MOTOR_L_BACK_PIN, speed);
+    analogWrite(MOTOR_R_BACK_PIN, speed);    
 }
 
 void Robot::turnRight(int degree){
-    
+    switch (_turnRadius){
+        case 0:
+            analogWrite(MOTOR_L_FORW_PIN, _speed);
+            analogWrite(MOTOR_R_BACK_PIN, _speed);  
+            break;
+        case 1:
+            analogWrite(MOTOR_L_FORW_PIN, _speed);
+            analogWrite(MOTOR_R_BACK_PIN, _speed/2);  
+            break;
+        case 2:
+            analogWrite(MOTOR_L_FORW_PIN, _speed);
+            break;
+        case 3:
+            analogWrite(MOTOR_L_FORW_PIN, _speed);
+            analogWrite(MOTOR_R_FORW_PIN, _speed/2);  
+            break;    
+        default:
+            break;
+    }
 }
 
 void Robot::turnLeft(int degree){
-    
+    switch (_turnRadius){
+        case 0:
+            analogWrite(MOTOR_R_FORW_PIN, _speed);  
+            analogWrite(MOTOR_L_BACK_PIN, _speed);
+            break;
+        case 1:
+            analogWrite(MOTOR_R_FORW_PIN, _speed);
+            analogWrite(MOTOR_L_BACK_PIN, _speed/2);  
+            break;
+        case 2:
+            analogWrite(MOTOR_R_FORW_PIN, _speed);
+            break;
+        case 3:
+            analogWrite(MOTOR_R_FORW_PIN, _speed);  
+            analogWrite(MOTOR_L_FORW_PIN, _speed/2);
+            break;
+        default:
+            break;
+    }    
 }
 
 void Robot::gripperBaseRotate(int degree){
@@ -74,4 +169,8 @@ void Robot::gripperWristRotate(int degree){
 
 void Robot::grip(int degree){
     
+}
+
+void Robot::stop(){
+
 }
