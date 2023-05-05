@@ -230,13 +230,55 @@ void Robot::testAllSystems(HardwareSerial &serial = Serial){
     Serial.println("Setting speed to 20");
     setSpeed(20);
     Serial.println("Moving Forward");
-    moveForward();
-    moveBackward();
+    moveForward(_speed);
+    Serial.println("Moving Backward");
+    moveBackward(_speed);
+    Serial.println("Turning Right 90 degree");
     turnRight(90);
+    Serial.println("Turning Left 90 degree");
     turnLeft(90);
+
+    Serial.println("Setting speed to 100");
+    setSpeed(100);
+    Serial.println("Moving Forward");
+    moveForward(_speed);
+    Serial.println("Moving Backward");
+    moveBackward(_speed);
+    Serial.println("Turning Right 180 degree");
+    turnRight(180);
+    Serial.println("Turning Left 180 degree");
+    turnLeft(180);
+
+    Serial.println("Rotating Gripper Base to 180 degree position");
     gripperBaseRotate(180);
+    Serial.println("Rotating Gripper Base to 0 degree position");
+    gripperBaseRotate(0);
+
+    Serial.println("Rotating Gripper Base2 to 180 degree position");
+    gripperBase2Rotate(180);
+    Serial.println("Rotating Gripper Base2 to 0 degree position");
+    gripperBase2Rotate(0);
+
+    Serial.println("Rotating Gripper Shoulder to 180 degree position");
+    gripperShoulderRotate(180);
+    Serial.println("Rotating Gripper Shoulder to 0 degree position");
+    gripperShoulderRotate(0);
+
+    Serial.println("Rotating Gripper Elbow to 180 degree position");
     gripperElbowRotate(180);
+    Serial.println("Rotating Gripper Elbow to 0 degree position");
+    gripperElbowRotate(0);
+    
+    Serial.println("Rotating Gripper Wrist to 180 degree position");
     gripperWristRotate(180);
+    Serial.println("Rotating Gripper Wrist to 0 degree position");
+    gripperWristRotate(0);
+
+    Serial.println("Closing Grip Fully");
     grip(180);
+    Serial.println("Opening Grip Fully");
+    grip(0);
+    
+    Serial.println("Stopping All Movement");
     stop();
 }
