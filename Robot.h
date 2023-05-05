@@ -5,33 +5,29 @@
 
 class Robot{
     private:
-        Servo _gripperBaseServo;  Servo _gripperElbowServo;  Servo _gripperWristServo;  Servo _gripperFingerServo;
-        char _command;              
-        int _speed = 50;
-        int _turnRadius = 0;
+        Servo _gripperBaseServo;  Servo _gripperBase2Servo;  Servo _gripperShoulderServo;  Servo _gripperElbowServo;  Servo _gripperWristServo;  Servo _gripperFingerServo;   
+        int _speed          = 50;
+        int _turnRadius     = 0;
+        int _actionDuration = 10;
         
     public:
         int BLUETOOTH_PIN_RX;     int BLUETOOTH_PIN_TX;
-        int GRIPPER_BASE_SERVO;   int GRIPPER_ELBOW_SERVO;   int GRIPPER_WRIST_SERVO;   int GRIPPER_FINGER_SERVO;
+        int GRIPPER_BASE_SERVO;   int GRIPPER_BASE2_SERVO;   int GRIPPER_SHOULDER_SERVO;   int GRIPPER_ELBOW_SERVO;   int GRIPPER_WRIST_SERVO;   int GRIPPER_FINGER_SERVO;
         int MOTOR_L_FORW_PIN;     int MOTOR_L_BACK_PIN;      int MOTOR_R_FORW_PIN;      int MOTOR_R_BACK_PIN;
-        
+
         Robot();
 
         Robot(
-            int BLUETOOTH_PIN_RX,     int BLUETOOTH_PIN_TX,
-            int GRIPPER_BASE_SERVO,   int GRIPPER_ELBOW_SERVO,   int GRIPPER_WRIST_SERVO,   int GRIPPER_FINGER_SERVO,
-            int MOTOR_L_FORW_PIN,     int MOTOR_L_BACK_PIN,      int MOTOR_R_FORW_PIN,      int MOTOR_R_BACK_PIN
+            int GRIPPER_BASE_SERVO,   int GRIPPER_BASE2_SERVO,   int GRIPPER_SHOULDER_SERVO, int GRIPPER_ELBOW_SERVO,   int GRIPPER_WRIST_SERVO,   int GRIPPER_FINGER_SERVO,
+            int MOTOR_L_FORW_PIN,     int MOTOR_L_BACK_PIN,      int MOTOR_R_FORW_PIN,       int MOTOR_R_BACK_PIN
         );
 
         ~Robot();
         
-        bool attachBluetooth(
-            int BLUETOOTH_PIN_RX, 
-            int BLUETOOTH_PIN_TX
-        );
-        
         bool attachGripper(
             int GRIPPER_BASE_SERVO,
+            int GRIPPER_BASE2_SERVO,
+            int GRIPPER_SHOULDER_SERVO,
             int GRIPPER_ELBOW_SERVO,
             int GRIPPER_WRIST_SERVO,
             int GRIPPER_FINGER_SERVO
@@ -43,7 +39,7 @@ class Robot{
             int MOTOR_R_FORW_PIN,   int MOTOR_R_BACK_PIN
         );
 
-        void listen();
+        void listenForCommands(int command);
         void setSpeed(int speed = 50);
         void setTurnRadius(int turnRadius);
         void moveForward(int speed = 50);
@@ -51,10 +47,13 @@ class Robot{
         void turnRight(int degree);
         void turnLeft(int degree);
         void gripperBaseRotate(int degree);
+        void gripperBase2Rotate(int degree);
+        void gripperShoulderRotate(int degree);
         void gripperElbowRotate(int degree);
         void gripperWristRotate(int degree);
         void grip(int degree);
         void stop();
+        void testAllSystems(HardwareSerial &serial = Serial);
 };
 #endif
     
